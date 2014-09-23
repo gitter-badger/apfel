@@ -23,6 +23,7 @@
       include "../commons/Smallx.h"
       include "../commons/gridAlpha.h"
       include "../commons/integralsRes.h"
+      include "../commons/EpsTrunc.h"
 **
 *     Input Variables
 *
@@ -51,6 +52,7 @@
          do pt=1,ipt+1
             integralsQCD = integralsQCD 
      1                   + coup**pt * SP(igrid,wnf,kk,pt-1,alpha,beta)
+     2                   * EpsTrunc**(pt-1)
          enddo
 *
          if(Smallx.and.kk.ge.4)then

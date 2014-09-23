@@ -328,6 +328,8 @@ c      kappa = 1d0          ! mu_R / mu_F
       function fbeta(a,nf,ipt)
 *
       implicit none
+*
+      include "../commons/EpsTrunc.h"
 **
 *     Input Variables
 *
@@ -345,11 +347,20 @@ c      kappa = 1d0          ! mu_R / mu_F
       if(ipt.eq.0)then
          fbeta = - a**2d0 * beta0(nf)
       elseif(ipt.eq.1)then
-         fbeta = - a**2d0 * ( beta0(nf) + a * beta1(nf) )
+         fbeta = - a**2d0 * ( beta0(nf) + EpsTrunc * a * beta1(nf) )
       elseif(ipt.eq.2)then
          fbeta = - a**2d0 * ( beta0(nf) 
-     1           + a * ( beta1(nf) + a * beta2(nf) ) )
+     1           + EpsTrunc * a * ( beta1(nf) 
+     2           + EpsTrunc * a * beta2(nf) ) )
       endif
+c      if(ipt.eq.0)then
+c         fbeta = - a**2d0 * beta0(nf)
+c      elseif(ipt.eq.1)then
+c         fbeta = - a**2d0 * ( beta0(nf) + a * beta1(nf) )
+c      elseif(ipt.eq.2)then
+c         fbeta = - a**2d0 * ( beta0(nf)
+c     1         + a * ( beta1(nf) + a * beta2(nf) ) )
+c      endif
 *
       return
       end

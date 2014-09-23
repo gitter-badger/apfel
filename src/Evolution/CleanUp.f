@@ -34,6 +34,7 @@
       include "../commons/TimeLike.h"
       include "../commons/Smallx.h"
       include "../commons/FastEvol.h"
+      include "../commons/EpsTrunc.h"
 *
 *     Set all the initialization flags to "xxxx" so that
 *     they will be initialized again by InitializeAPFEL.
@@ -60,6 +61,7 @@
       InLambdaQCD = "xxxx"
       InPDFEvol   = "xxxx"
       InFastEvol  = "xxxx"
+      InEpsTrunc  = "xxxx"
 *
       return
       end

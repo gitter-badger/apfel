@@ -34,6 +34,7 @@
       include "../commons/TimeLike.h"
       include "../commons/Smallx.h"
       include "../commons/FastEvol.h"
+      include "../commons/EpsTrunc.h"
 *
 *     Initialize default parameters (those that were not initialized before)
 *
@@ -58,6 +59,7 @@
       if(InRep.ne."done")       call SetReplica(0)
       if(InEvolOp.ne."done")    call EnableEvolutionOperator(.false.)
       if(InLock.ne."done")      call LockGrids(.false.)
+      if(InEpsTrunc.ne."done")  call SetEpsTrunc(1d0)
       if(InGrid.ne."done")then
          call SetNumberOfGrids(3)
          call SetGridParameters(1,80,3,1d-5)
