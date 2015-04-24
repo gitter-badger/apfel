@@ -250,10 +250,8 @@
             write(6,*) "Evaluating replica",krep," ..."
             call SetReplica(krep)
             do iq2=1,nq2LHA
-
                kappa = dsqrt(q2LHA(iq2)) / MZ
                call initializeAPFEL(kappa)
-
                if(Qin.gt.0d0)then
                   call EvolveAPFEL(Qin,dsqrt(q2LHA(iq2)))
                else

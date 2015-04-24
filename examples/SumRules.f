@@ -18,6 +18,7 @@
 *
 c      call SetFFNS(3)
 c      call SetTheory("QED")
+      call SetPDFSet("APFEL_nn30nlo118_dire.LHgrid")
       call SetPerturbativeOrder(1)
       call SetNumberOfGrids(3)
       call SetGridParameters(1,150,3,1d-9)
@@ -26,7 +27,7 @@ c      call SetTheory("QED")
 *
 *     Initializes integrals on the grids
 *
-      call InitializeAPFEL
+      call InitializeAPFEL(0d0)
 *
 *     Evolve PDFs on the grids
 *

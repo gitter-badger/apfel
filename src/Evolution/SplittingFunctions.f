@@ -358,7 +358,7 @@ c       COMMON / P1SOFT / A2
 *
        FUNCTION X0NSB (Y)
        IMPLICIT REAL*8 (A - Z)
-      include "../commons/kappa2DIRE.h"
+       include "../commons/kappa2DIRE.h"
 *
        CF = 4D0/3D0
 c       X0NSB = 4D0*CF/(1D0-Y)
@@ -374,9 +374,12 @@ c       X0NSB = 4D0*CF/(1D0-Y)
 *
        FUNCTION X0NSC (Y)
        IMPLICIT REAL*8 (A - Z)
+       include "../commons/kappa2DIRE.h"
 *
        CF = 4D0/3D0
-       X0NSC = 4D0*CF * LOG (1D0-Y) + 3D0*CF
+c       X0NSC = 4D0*CF * LOG (1D0-Y) + 3D0*CF
+       X0NSC = 2D0*CF * LOG (((1D0-Y)**2D0+kappa2DIRE)/(1D0+kappa2DIRE))
+     1       + 3D0*CF
 *
        RETURN
        END
@@ -807,9 +810,11 @@ c       COMMON / P1GSOFT / A2G
        FUNCTION X0GQA (X)
 *
        IMPLICIT REAL*8 (A - Z)
+       include "../commons/kappa2DIRE.h"
 *
        CF = 4D0/3D0
-       X0GQA = 4D0*CF * ( - 1. + 0.5 * X + 1D0/X )
+c       X0GQA = 4D0*CF * ( - 1. + 0.5 * X + 1D0/X )
+       X0GQA = 4D0*CF * ( - 1. + 0.5 * X + X / (X**2D0+kappa2DIRE) )
 *
        RETURN
        END
@@ -821,9 +826,11 @@ c       COMMON / P1GSOFT / A2G
 *
        FUNCTION X0GGA (X)
        IMPLICIT REAL*8 (A - Z)
+       include "../commons/kappa2DIRE.h"
 *
        CA = 3D0
-       X0GGA = 4D0*CA * ( - 2. + X - X**2 + 1D0/X )
+c       X0GGA = 4D0*CA * ( - 2. + X - X**2 + 1D0/X )
+       X0GGA = 4D0*CA * ( - 2. + X - X**2 + X / (X**2D0+kappa2DIRE) )
 *
        RETURN
        END
@@ -835,9 +842,11 @@ c       COMMON / P1GSOFT / A2G
 *
        FUNCTION X0GGB (X)
        IMPLICIT REAL*8 (A - Z)
+       include "../commons/kappa2DIRE.h"
 *
        CA = 3D0
-       X0NSB = 4D0*CA*((1D0-Y)/((1D0-Y)**2D0+kappa2DIRE))
+c       X0GGB = 4D0*CA / (1D0-X)
+       X0GGB = 4D0*CA*((1D0-X)/((1D0-X)**2D0+kappa2DIRE))
 *
        RETURN
        END
@@ -849,10 +858,13 @@ c       COMMON / P1GSOFT / A2G
 *
        FUNCTION X0GGC (X,NF)
        IMPLICIT REAL*8 (A - Z)
+       include "../commons/kappa2DIRE.h"
        INTEGER NF
 *
        CA = 3D0
-       X0GGC = 4D0*CA * LOG (1D0-X) - 2D0/3D0 * NF + 11D0/3D0 * CA
+c       X0GGC = 4D0*CA * LOG (1D0-X) - 2D0/3D0 * NF + 11D0/3D0 * CA
+       X0GGC = 2D0*CA * LOG(((1D0-X)**2D0+kappa2DIRE)/(1D0+kappa2DIRE))
+     1       - 2D0/3D0 * NF + 11D0/3D0 * CA
 *
        RETURN
        END
