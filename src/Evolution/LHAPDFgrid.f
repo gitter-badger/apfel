@@ -46,9 +46,11 @@
       double precision xlepLHA(-6:6,nxLHA,nq2LHA)
       double precision xPDFj,xgammaj,xLeptonj
       double precision AlphaQCD
+      double precision kappa,MZ
       character*30 str
       parameter(eps=1d-10)
       parameter(offset=1d-2)
+      parameter(MZ=91.2d0)
 *
 *     Specify initialization for the LHgrid
 *
@@ -58,7 +60,8 @@
       call SetGridParameters(2,50,5,xmLHA)
       call SetGridParameters(3,20,5,8d-1)
 *
-      call initializeAPFEL
+      call initializeAPFEL(0d0)
+      call EnableWelcomeMessage(.false.)
 *
 *     Compute the values of lambdaQCD
 *
@@ -247,6 +250,10 @@
             write(6,*) "Evaluating replica",krep," ..."
             call SetReplica(krep)
             do iq2=1,nq2LHA
+
+               kappa = dsqrt(q2LHA(iq2)) / MZ
+               call initializeAPFEL(kappa)
+
                if(Qin.gt.0d0)then
                   call EvolveAPFEL(Qin,dsqrt(q2LHA(iq2)))
                else
@@ -334,7 +341,7 @@
          write(13,*) "AlphaS_OrderQCD:",ipt
          write(13,*) "AlphaS_Type: ipol"
          write(13,*)"AlphaS_Qs: [",(dsqrt(q2LHA(iq2)),",",iq2=1,nq2LHA),
-     1              "]" 
+     1              "]"
          write(13,*) "AlphaS_Vals: [",(AlphaQCD(dsqrt(q2LHA(iq2))),
      1               ",",iq2=1,nq2LHA), "]"
          write(13,*) "AlphaS_Lambda4:", lambda4
@@ -392,6 +399,8 @@
                endif
 *
                do iq2=iq2in,iq2fi
+                  kappa = dsqrt(q2LHA(iq2)) / MZ
+                  call initializeAPFEL(kappa)
                   if(Qin.gt.0d0)then
                      call EvolveAPFEL(Qin,dsqrt(q2LHA(iq2)))
                   else

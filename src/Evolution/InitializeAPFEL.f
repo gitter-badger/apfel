@@ -6,7 +6,7 @@
 *     on the grids.
 *
 ************************************************************************
-      subroutine InitializeAPFEL
+      subroutine InitializeAPFEL(kappa)
 *
       implicit none
 *
@@ -18,11 +18,20 @@
       include "../commons/Nf_FF.h"
       include "../commons/scales.h"
       include "../commons/Smallx.h"
+      include "../commons/kappa2DIRE.h"
+**
+*     Input Variables
 *
-*     Variables
+      double precision kappa
+**
+*     Internal Variables
 *
       integer inf,nfi,nff,inl
       double precision t1,t2
+*
+*     Parameter of the DIRE evolution
+*
+      kappa2DIRE = kappa * kappa
 *
       call cpu_time(t1)
 *

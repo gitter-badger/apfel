@@ -358,9 +358,11 @@ c       COMMON / P1SOFT / A2
 *
        FUNCTION X0NSB (Y)
        IMPLICIT REAL*8 (A - Z)
+      include "../commons/kappa2DIRE.h"
 *
        CF = 4D0/3D0
-       X0NSB = 4D0*CF/(1D0-Y)
+c       X0NSB = 4D0*CF/(1D0-Y)
+       X0NSB = 4D0*CF*((1D0-Y)/((1D0-Y)**2D0+kappa2DIRE))
 *
        RETURN
        END
@@ -835,7 +837,7 @@ c       COMMON / P1GSOFT / A2G
        IMPLICIT REAL*8 (A - Z)
 *
        CA = 3D0
-       X0GGB = 4D0*CA / (1D0-X)
+       X0NSB = 4D0*CA*((1D0-Y)/((1D0-Y)**2D0+kappa2DIRE))
 *
        RETURN
        END
